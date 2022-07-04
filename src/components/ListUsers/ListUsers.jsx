@@ -13,7 +13,7 @@ const ListUsers = () => {
   function listUsers() {
     axios({
       method: "get",
-      url: "http://localhost:4000/users",
+      url: "https://hiring-challenge-backend.herokuapp.com/users",
     }).then((res) => {
       return setUserData(res.data);
     });

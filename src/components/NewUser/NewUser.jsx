@@ -60,7 +60,7 @@ const NewUser = () => {
     e.preventDefault();
     axios({
       method: "post",
-      url: "http://localhost:4000/user",
+      url: "https://hiring-challenge-backend.herokuapp.com/user",
       data: {
         login: githubData.login,
         id: githubData.id,
