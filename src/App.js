@@ -2,7 +2,7 @@ import { useState } from "react";
 import React from "react";
 import NewUser from "./components/NewUser/NewUser";
 import ListUsers from "./components/ListUsers/ListUsers";
-import { Form, Col, Button, InputGroup, Row, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
@@ -22,12 +22,10 @@ const App = () => {
             <Button
               className="button"
               onClick={handleNewUser}
-              // variant={loadingSearchUser ? "success" : "secondary"}
               variant="secondary"
               type="submit"
             >
-              {/* {loadingSearchUser ? "Procurando..." : "Procurar"} */}
-              Criar novo usuário
+              Criar novo cadastro
             </Button>
             <ListUsers />
           </div>

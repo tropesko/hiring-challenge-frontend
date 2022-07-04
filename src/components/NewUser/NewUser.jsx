@@ -60,7 +60,7 @@ const NewUser = () => {
     e.preventDefault();
     axios({
       method: "post",
-      url: "http://localhost:4000/app/user",
+      url: "http://localhost:4000/user",
       data: {
         login: githubData.login,
         id: githubData.id,
@@ -107,6 +107,7 @@ const NewUser = () => {
       },
     }).then((res) => {
       setLoadingSave(false);
+      window.location.reload(false);
     });
   }
 
