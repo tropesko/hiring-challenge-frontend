@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Form, Col, Button, InputGroup, Row, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "./styles.css";
+import "./styles.css";
 
 const NewUser = () => {
   // States
