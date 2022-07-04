@@ -1,0 +1,9 @@
+hr {
+  border: 1.5px solid black;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 10%;
+  color: #343a40;
+}

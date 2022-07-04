@@ -1,25 +1,43 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
 import NewUser from "./components/NewUser/NewUser";
-import ListUsers from "./components/ListUsers";
+import ListUsers from "./components/ListUsers/ListUsers";
+import { Form, Col, Button, InputGroup, Row, Container } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   // States
   const [newUser, setNewUser] = useState(false);
-  // const [searchTerm, setSearchTerm] = useState([]);
+
+  function handleNewUser(e) {
+    e.preventDefault();
+    setNewUser(true);
+  }
 
   return (
-    <>
-      {newUser === false ? (
-        <div className="container">
-          <NewUser />
-        </div>
-      ) : (
-        <div className="container">
-          <ListUsers />
-        </div>
-      )}
-    </>
+    <div className="container">
+      <>
+        {newUser === false ? (
+          <div className="container">
+            <Button
+              className="button"
+              onClick={handleNewUser}
+              // variant={loadingSearchUser ? "success" : "secondary"}
+              variant="secondary"
+              type="submit"
+            >
+              {/* {loadingSearchUser ? "Procurando..." : "Procurar"} */}
+              Criar novo usuário
+            </Button>
+            <ListUsers />
+          </div>
+        ) : (
+          <div className="hidden">
+            <NewUser />
+          </div>
+        )}
+      </>
+    </div>
   );
 };
 

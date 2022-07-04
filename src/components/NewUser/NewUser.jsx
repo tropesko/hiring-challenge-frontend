@@ -1,8 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { Form, Col, Button, InputGroup, Row, Container } from "react-bootstrap";
-import "./Styles.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles.css";
 
 const NewUser = () => {
   // States
@@ -13,26 +13,16 @@ const NewUser = () => {
   const [githubData, setGithubData] = useState([]);
   const [postalcode, setPostalcode] = useState("");
 
-  function handleSubmitUser(e) {
+  function handleSearchUser(e) {
     e.preventDefault();
     setLoadingSearchUser(true);
     searchUser();
   }
 
-  function handleSubmitPostalcode(e) {
+  function handleSearchPostalcode(e) {
     e.preventDefault();
     setLoadingPostalCode(true);
     searchPostalcode();
-    // window.scrollTo(0, document.body.scrollHeight);
-    // window.scrollTo({
-    //   bottom: 0,
-    //   left: 0,
-    //   behavior: "smooth",
-    // });
-  }
-
-  function handleSave() {
-    setLoadingSave(false);
   }
 
   function searchUser() {
@@ -65,16 +55,70 @@ const NewUser = () => {
     }
   }
 
+  function handleSubmit(e) {
+    setLoadingSave(true);
+    e.preventDefault();
+    axios({
+      method: "post",
+      url: "http://localhost:4000/app/user",
+      data: {
+        login: githubData.login,
+        id: githubData.id,
+        node_id: githubData.node_id,
+        avatar_url: githubData.avatar_url,
+        gravatar_id: githubData.gravatar_id,
+        url: githubData.url,
+        html_url: githubData.html_url,
+        followers_url: githubData.followers_url,
+        following_url: githubData.following_url,
+        gists_url: githubData.gists_url,
+        starred_url: githubData.starred_url,
+        subscriptions_url: githubData.subscriptions_url,
+        organizations_url: githubData.organizations_url,
+        repos_url: githubData.repos_url,
+        events_url: githubData.events_url,
+        received_events_url: githubData.received_events_url,
+        type: githubData.type,
+        site_admin: githubData.site_admin,
+        name: githubData.name,
+        company: githubData.company,
+        blog: githubData.blog,
+        location: githubData.location,
+        email: githubData.email,
+        hireable: githubData.hireable,
+        bio: githubData.bio,
+        twitter_username: githubData.twitter_username,
+        public_repos: githubData.public_repos,
+        public_gists: githubData.public_gists,
+        followers: githubData.followers,
+        following: githubData.following,
+        created_at: githubData.created_at,
+        updated_at: githubData.updated_at,
+        cep: postalcode.cep,
+        logradouro: postalcode.logradouro,
+        complemento: postalcode.complemento,
+        bairro: postalcode.bairro,
+        localidade: postalcode.localidade,
+        uf: postalcode.uf,
+        ibge: postalcode.ibge,
+        gia: postalcode.gia,
+        ddd: postalcode.ddd,
+        siafi: postalcode.siafi,
+      },
+    }).then((res) => {
+      setLoadingSave(false);
+    });
+  }
+
   return (
     <Container>
       <Form>
-        <Form.Label>Nome de usuário github</Form.Label>
+        <Form.Label>Criar cadastro</Form.Label>
         <InputGroup className="mb-3" id="start-input">
           <InputGroup.Text>@</InputGroup.Text>
           <Form.Control
-            placeholder="Username"
+            placeholder="Nome de usuário Github"
             aria-describedby="basic-addon1"
-            // value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </InputGroup>
@@ -82,8 +126,8 @@ const NewUser = () => {
         <Form.Group className="mb-3">
           <Button
             className="button"
-            onClick={handleSubmitUser}
-            variant={loadingSearchUser ? "success" : "primary"}
+            onClick={handleSearchUser}
+            variant={loadingSearchUser ? "success" : "secondary"}
             type="submit"
           >
             {loadingSearchUser ? "Procurando..." : "Procurar"}
@@ -309,8 +353,8 @@ const NewUser = () => {
             <Form.Group className="mb-3">
               <Button
                 className="button"
-                onClick={handleSubmitPostalcode}
-                variant={loadingPostalCode ? "success" : "primary"}
+                onClick={handleSearchPostalcode}
+                variant={loadingPostalCode ? "success" : "secondary"}
                 type="submit"
               >
                 {loadingPostalCode ? "Procurando..." : "Procurar CEP"}
@@ -332,7 +376,11 @@ const NewUser = () => {
                   <Form.Group as={Col} className="mb-3">
                     <Form.Label>complemento</Form.Label>
                     <InputGroup>
-                      <Form.Control />
+                      <Form.Control
+                        id="complemento"
+                        value={postalcode.complemento}
+                        disabled
+                      />
                     </InputGroup>
                   </Form.Group>
 
@@ -391,9 +439,10 @@ const NewUser = () => {
                 <Form.Group className="mb-3">
                   <Button
                     className="button"
-                    onClick={handleSave}
-                    variant={loadingSave ? "success" : "primary"}
+                    onClick={handleSubmit}
+                    variant={loadingSave ? "success" : "secondary"}
                     type="submit"
+                    id="save-data-button"
                   >
                     {loadingSave ? "Salvando..." : "Salvar Dados"}
                   </Button>
